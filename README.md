@@ -1,6 +1,6 @@
 # Explanations
 
-## Container
+## Image
 Docker file contains
 ```Docker
 # VERSION OF NODE
@@ -18,12 +18,14 @@ EXPOSE 3000
 CMD ["node", "index.js"]
 ```
 
-## Build Image with name node-app-image
+### Build Image with name node-app-image
 ```Bash
 docker build -t node-app-image .
 ```
 
-## Run Container with name node-app with previous image
+## Container
+
+### Run Container with name node-app with previous image
 ```Bash
 docker run -v $(pwd):/app -v /app/node_modules --env-file ./.env -p 3000:4000  -d --name node-app node-app-image
 ```
@@ -59,3 +61,43 @@ docker volume <VOLUME_NAME>
 ```Bash
 docker volume prune
 ```
+
+## Docker compose
+
+### Docker-compose.yml
+```YAML
+version: "3"
+services:
+  #Name of service
+  node-app:
+    # find Dockerfile
+    build: .
+    ports: 
+      - "3000:6000"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      # Ports "3000:XXXX" <> PORT=XXXX and don't forget change in Dockerfile EXPOSE XXXX or ENV PORT
+      # Ports "1000:3000" in web browser type localhost:1000, if "2000:3000" type localhost: 2000   
+      - PORT=6000
+    # env_file:
+    #  - ./.env
+```
+
+### Launch docker-compose
+```
+docker-compose up
+```
+You could add:
+* `-d` for detach mode.
+* `--build` for rebuild any changes in docker-compose and DockerFile
+
+```
+docker-compose down
+```
+You could add:
+* `-v` for delete volume in same time.
+
+
+### 
