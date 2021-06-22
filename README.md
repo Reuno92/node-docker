@@ -27,6 +27,7 @@ docker build -t node-app-image .
 ```Bash
 docker run -v $(pwd):/app -p 4000:3000 -d --name node-app node-app-image
 ```
+
 * -v : persistent data with path/to/folder/on/location:path/to/folder/on/container 
   * If add `:ro` at end of path/to/folder/on/container. It's could be say 
 * -p : for port external port from internal container port
