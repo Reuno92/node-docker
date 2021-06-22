@@ -1,4 +1,4 @@
-# Install
+# Explain
 
 ## Container
 Docker file contains
@@ -25,8 +25,14 @@ docker build -t node-app-image .
 
 ## Run Container with name node-app with previous image
 ```Bash
-docker run -p 4000:3000 -d --name node-app node-app-image
+docker run -v $(pwd):/app -p 4000:3000 -d --name node-app node-app-image
 ```
+* -v : persistent data with path/to/folder/on/location:path/to/folder/on/container 
+  * If add `:ro` at end of path/to/folder/on/container. It's could be say 
+* -p : for port external port from internal container port
+* -d : Detach mode
+* --name : for named container
+* last parameter, it's image
 
 ## Get into the container
 ```Bash
